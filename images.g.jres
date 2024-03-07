@@ -1,0 +1,17 @@
+{
+    "Ls{R8$^5K=X8OQ}dCd-?": {
+        "data": "hwQFABAAAAAgRCIAIAAgAEIkJEIEAgQCIkREIgREJABCQiICJCAEQCBEIgAAAgAA",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "proj_basic"
+    },
+    "image1": {
+        "data": "hwQLABQAAAAAAAAA8AAAAAAAAAAAAAAALw8AAAAAAAAAAADwIg8AAAAAAAAA8P///w8AAAAAAADw391E3f0CAAIAAAAv3d1E3f1EAgACAADw391E3f0kIAAAAAAA8P///w8AAAAAAAAAAADwIg8AAAAAAAAAAAAALw8AAAAAAAAAAAAA8AAAAAAAAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "myImage"
+    },
+    "*": {
+        "mimeType": "image/x-mkcd-f4",
+        "dataEncoding": "base64",
+        "namespace": "myImages"
+    }
+}
