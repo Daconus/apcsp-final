@@ -1,13 +1,33 @@
 {
-    "Ls{R8$^5K=X8OQ}dCd-?": {
-        "data": "hwQFABAAAAAgRCIAIAAgAEIkJEIEAgQCIkREIgREJABCQiICJCAEQCBEIgAAAgAA",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "proj_basic"
-    },
     "image1": {
         "data": "hwQLABQAAAAAAAAA8AAAAAAAAAAAAAAALw8AAAAAAAAAAADwIg8AAAAAAAAA8P///w8AAAAAAADw391E3f0CAAIAAAAv3d1E3f1EAgACAADw391E3f0kIAAAAAAA8P///w8AAAAAAAAAAADwIg8AAAAAAAAAAAAALw8AAAAAAAAAAAAA8AAAAAAAAAA=",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "myImage"
+    },
+    "image3": {
+        "data": "hwQHAAcAAAAAIgIAIEQkAEJURAJCVUUCQlREAiBEJAAAIgIA",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "proj_trishot"
+    },
+    "(M=;!C3LUZOT|ouSRI?k": {
+        "data": "hwQRAA0AAAAA/////w8AAPDR3URE9AAAT0RE3d29DwAf3d3d3b0PAPD//////wAAAADw0b0PAAAAAB/d3fsAAAAAb03U+wAAAABvTUT7AAAAAG9N1PsAAAAAH93d+wAAAADw0b0PAADw//////8AAB/d3d3dvQ8AT0RE3d29DwDw0d1ERPQAAAD/////DwAA",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "player_ship"
+    },
+    "image4": {
+        "data": "hwQFAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREREREREREREREREREREREREREREREREREREREREREIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiJEREREREREREREREREREREREREREREREREREREREREBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "proj_beam"
+    },
+    "Ls{R8$^5K=X8OQ}dCd-?": {
+        "data": "hwQDAAcAAAAgIiIAUlVVAiAiIgA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "proj_basic"
+    },
+    "image2": {
+        "data": "hwQHAA4AAAAAiIgIAAAAAICZmYmIAAAAmJmZmZmIAACYmZmZmZmIAJiZmZmZiAAAgJmZiYgAAAAAiIgIAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "proj_plasma"
     },
     "*": {
         "mimeType": "image/x-mkcd-f4",
