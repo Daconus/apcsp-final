@@ -15,13 +15,8 @@ controller.B.on_event(ControllerButtonEvent.PRESSED, on_b_pressed)
 
 def on_on_overlap(sprite, otherSprite):
     sprites.destroy(sprite)
-    if info.life() < 0:
-        playLongSFX(lsfx_player_hit, 0)
-        info.change_life_by(-1)
-    else:
-        sprites.destroy(otherSprite, effects.disintegrate, 500)
-        music.play(sfx_death, music.PlaybackMode.UNTIL_DONE)
-        game.game_over(False)
+    playLongSFX(lsfx_player_hit, 0)
+    info.change_life_by(-1)
 sprites.on_overlap(SpriteKind.enemy_Proj, SpriteKind.player, on_on_overlap)
 
 # This function takes a long sound effect and plays it
@@ -29,17 +24,64 @@ def playLongSFX(lsfx: List[music.Playable], delay: number):
     for sound in lsfx:
         music.play(sound, music.PlaybackMode.UNTIL_DONE)
         pause(delay)
+
+def on_life_zero():
+    sprites.destroy(playerSprite, effects.disintegrate, 500)
+    music.play(sfx_death, music.PlaybackMode.UNTIL_DONE)
+    game.game_over(False)
+info.on_life_zero(on_life_zero)
+
+def updateMissileDisplay():
+    ui_missileDigitTen.set_position(7, 9)
+    ui_missileDigitOne.set_position(13, 9)
+    ui_missileDigitOne.set_image(digits[missile_count % 10])
+    ui_missileDigitTen.set_image(digits[int(missile_count / 10)])
 proj_plasma: Sprite = None
 proj_missile: Sprite = None
 proj_trishot: Sprite = None
 proj_basic: Sprite = None
 currentWeapon = 0
+ui_missileDigitTen: Sprite = None
+ui_missileDigitOne: Sprite = None
 playerWeapon = 0
 weapon_2 = 0
 weapon_1 = 0
+missile_count = 0
+playerSprite: Sprite = None
 sfx_death: music.SoundEffect = None
 lsfx_player_hit: List[music.SoundEffect] = []
+digits: List[Image] = []
 effects.star_field.start_screen_effect()
+digits = [assets.image("""
+        ui_digit_0
+    """),
+    assets.image("""
+        ui_digit_1
+    """),
+    assets.image("""
+        ui_digit_2
+    """),
+    assets.image("""
+        ui_digit_3
+    """),
+    assets.image("""
+        ui_digit_4
+    """),
+    assets.image("""
+        ui_digit_5
+    """),
+    assets.image("""
+        ui_digit_6
+    """),
+    assets.image("""
+        ui_digit_7
+    """),
+    assets.image("""
+        ui_digit_8
+    """),
+    assets.image("""
+        ui_digit_9
+    """)]
 # sound for weaker hits
 lsfx_basic_hit = [music.create_sound_effect(WaveShape.NOISE,
         3856,
@@ -147,8 +189,9 @@ playerSprite = sprites.create(assets.image("""
     player_ship
 """), SpriteKind.player)
 weaponCooldown = 0
+missile_count = 15
 weapon_1 = 0
-weapon_2 = 0
+weapon_2 = 1
 playerWeapon = weapon_1
 playerSprite.set_position(80, 100)
 controller.move_sprite(playerSprite, 100, 100)
@@ -161,41 +204,10 @@ ui_missileDigitOne = sprites.create(assets.image("""
 ui_missileDigitTen = sprites.create(assets.image("""
     ui_digit_0
 """), SpriteKind.UI)
-digits = [sprites.create(assets.image("""
-        ui_digit_0
-    """), SpriteKind.UI),
-    sprites.create(assets.image("""
-        ui_digit_1
-    """), SpriteKind.UI),
-    sprites.create(assets.image("""
-        ui_digit_2
-    """), SpriteKind.UI),
-    sprites.create(assets.image("""
-        ui_digit_3
-    """), SpriteKind.UI),
-    sprites.create(assets.image("""
-        ui_digit_4
-    """), SpriteKind.UI),
-    sprites.create(assets.image("""
-        ui_digit_5
-    """), SpriteKind.UI),
-    sprites.create(assets.image("""
-        ui_digit_6
-    """), SpriteKind.UI),
-    sprites.create(assets.image("""
-        ui_digit_7
-    """), SpriteKind.UI),
-    sprites.create(assets.image("""
-        ui_digit_8
-    """), SpriteKind.UI),
-    sprites.create(assets.image("""
-        ui_digit_9
-    """), SpriteKind.UI)]
-ui_missileDigitTen.set_position(7, 9)
-ui_missileDigitOne.set_position(13, 9)
+updateMissileDisplay()
 
 def on_on_update():
-    global weaponCooldown, proj_basic, proj_trishot, proj_missile, proj_plasma
+    global weaponCooldown, proj_basic, proj_trishot, proj_missile, missile_count, proj_plasma
     if playerWeapon == 0 and (weaponCooldown == 0 and controller.A.is_pressed()):
         weaponCooldown = 0.2
         proj_basic = sprites.create_projectile_from_sprite(assets.image("""
@@ -223,12 +235,14 @@ def on_on_update():
             -50,
             -250)
         music.play(sfx_shoot_basic, music.PlaybackMode.IN_BACKGROUND)
-    if playerWeapon == 1 and (weaponCooldown == 0 and controller.A.is_pressed()):
+    if playerWeapon == 1 and (missile_count > 0 and (weaponCooldown == 0 and controller.A.is_pressed())):
         weaponCooldown = 0.6
         proj_missile = sprites.create_projectile_from_sprite(assets.image("""
             myImage
         """), playerSprite, 0, -250)
         music.play(sfx_shoot_missile, music.PlaybackMode.IN_BACKGROUND)
+        missile_count += -1
+        updateMissileDisplay()
     if playerWeapon == 3 and (weaponCooldown == 0 and controller.A.is_pressed()):
         weaponCooldown = 1.5
         proj_plasma = sprites.create_projectile_from_sprite(assets.image("""
@@ -247,12 +261,6 @@ def on_on_update2():
     if playerSprite.y > 114:
         playerSprite.y = 114
 game.on_update(on_on_update2)
-
-def on_on_update3():
-    global ui_missileDigitOne
-    list2: List[Sprite] = []
-    ui_missileDigitOne = list2[0]
-game.on_update(on_on_update3)
 
 def on_update_interval():
     global weaponCooldown
