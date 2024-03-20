@@ -34,6 +34,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "a"
     },
+    "image15": {
+        "data": "hwQPAA8AAAD/AAAAAAAAAN//AAAAAAAA393/AAAAAADwvbv/AAAAAPC9u7v/AAAAIK+qqrv/AABCv8u8qqr/AEK/zLy7u6oPQr/LvKqq/wAgr6qqu/8AAPC9u7v/AAAA8L27/wAAAADfvf8AAAAAAN//AAAAAAAA/wAAAAAAAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "enemy"
+    },
     "image5": {
         "data": "hwQFAAkAAAAQERARAAAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAABAREBEAAAAA",
         "mimeType": "image/x-mkcd-f4",

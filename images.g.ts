@@ -221,6 +221,24 @@ f 4 d d f f b b b b b f f d d 4 f
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `;
+            case "image15":
+            case "enemy":return img`
+f f f . . . 2 2 2 . . . f f f 
+f d d f f 2 4 4 4 2 f f d d f 
+. f d d d f f f f f d d d f . 
+. f d b b a b b b a b b b f . 
+. . f b b a b c b a b b f . . 
+. . f b b a c c c a b b f . . 
+. . . f b a c c c a b f . . . 
+. . . f b a b b b a b f . . . 
+. . . . f b a b a b f . . . . 
+. . . . f b a b a b f . . . . 
+. . . . . f a b a f . . . . . 
+. . . . . f a b a f . . . . . 
+. . . . . . f a f . . . . . . 
+. . . . . . f a f . . . . . . 
+. . . . . . . f . . . . . . . 
+`;
             case "image5":
             case "ui_digit_0":return img`
 . 1 1 1 . 

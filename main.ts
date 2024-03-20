@@ -13,14 +13,8 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 sprites.onOverlap(SpriteKind.enemy_Proj, SpriteKind.Player, function (sprite, otherSprite) {
     sprites.destroy(sprite)
-    if (info.life() < 0) {
-        playLongSFX(lsfx_player_hit, 0)
-        info.changeLifeBy(-1)
-    } else {
-        sprites.destroy(otherSprite, effects.disintegrate, 500)
-        music.play(sfx_death, music.PlaybackMode.UntilDone)
-        game.gameOver(false)
-    }
+    playLongSFX(lsfx_player_hit, 0)
+    info.changeLifeBy(-1)
 })
 // This function takes a long sound effect and plays it
 function playLongSFX (lsfx: music.Playable[], delay: number) {
@@ -29,23 +23,45 @@ function playLongSFX (lsfx: music.Playable[], delay: number) {
         pause(delay)
     }
 }
+info.onLifeZero(function () {
+    sprites.destroy(playerSprite, effects.disintegrate, 500)
+    music.play(sfx_death, music.PlaybackMode.UntilDone)
+    game.gameOver(false)
+})
 function updateMissileDisplay () {
-    let ui_missileDigitOne: Sprite = null
-    let ui_missileDigitTen: Sprite = null
     ui_missileDigitTen.setPosition(7, 9)
     ui_missileDigitOne.setPosition(13, 9)
+    ui_missileDigitOne.setImage(digits[missile_count % 10])
+    ui_missileDigitTen.setImage(digits[Math.trunc(missile_count / 10)])
 }
 let proj_plasma: Sprite = null
 let proj_missile: Sprite = null
 let proj_trishot: Sprite = null
 let proj_basic: Sprite = null
 let currentWeapon = 0
+let ui_missileDigitTen: Sprite = null
+let ui_missileDigitOne: Sprite = null
 let playerWeapon = 0
 let weapon_2 = 0
 let weapon_1 = 0
+let missile_count = 0
+let playerSprite: Sprite = null
 let sfx_death: music.SoundEffect = null
 let lsfx_player_hit: music.SoundEffect[] = []
+let digits: Image[] = []
 effects.starField.startScreenEffect()
+digits = [
+assets.image`ui_digit_0`,
+assets.image`ui_digit_1`,
+assets.image`ui_digit_2`,
+assets.image`ui_digit_3`,
+assets.image`ui_digit_4`,
+assets.image`ui_digit_5`,
+assets.image`ui_digit_6`,
+assets.image`ui_digit_7`,
+assets.image`ui_digit_8`,
+assets.image`ui_digit_9`
+]
 // sound for weaker hits
 let lsfx_basic_hit = [music.createSoundEffect(WaveShape.Noise, 3856, 1, 255, 255, 30, SoundExpressionEffect.Tremolo, InterpolationCurve.Linear), music.createSoundEffect(WaveShape.Noise, 1984, 1627, 148, 81, 100, SoundExpressionEffect.Warble, InterpolationCurve.Logarithmic)]
 // sound for player hit
@@ -62,15 +78,17 @@ sfx_death = music.createSoundEffect(WaveShape.Square, 4299, 1137, 255, 50, 1000,
 let sfx_heal = music.createSoundEffect(WaveShape.Sine, 1, 3812, 255, 113, 200, SoundExpressionEffect.None, InterpolationCurve.Curve)
 let sfx_plasma_explosion = music.createSoundEffect(WaveShape.Square, 1463, 1, 255, 17, 500, SoundExpressionEffect.Warble, InterpolationCurve.Curve)
 let sfx_missile_explosion = music.createSoundEffect(WaveShape.Noise, 1538, 379, 255, 0, 250, SoundExpressionEffect.Tremolo, InterpolationCurve.Curve)
-let playerSprite = sprites.create(assets.image`player_ship`, SpriteKind.Player)
+playerSprite = sprites.create(assets.image`player_ship`, SpriteKind.Player)
 let weaponCooldown = 0
-let missile_count = 15
+missile_count = 15
 weapon_1 = 0
 weapon_2 = 1
 playerWeapon = weapon_1
 playerSprite.setPosition(80, 100)
 controller.moveSprite(playerSprite, 100, 100)
 let ui_base = sprites.create(assets.image`ui`, SpriteKind.UI)
+ui_missileDigitOne = sprites.create(assets.image`ui_digit_0`, SpriteKind.UI)
+ui_missileDigitTen = sprites.create(assets.image`ui_digit_0`, SpriteKind.UI)
 updateMissileDisplay()
 game.onUpdate(function () {
     if (playerWeapon == 0 && (weaponCooldown == 0 && controller.A.isPressed())) {
